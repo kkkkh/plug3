@@ -14,12 +14,9 @@
 <script setup lang="ts">
   import {onMounted, nextTick, ref, onBeforeUnmount} from 'vue'
   import DatamapModule from './moule.vue'
-  import {jsPlumb, Defaults} from 'jsplumb'
+  import {jsPlumb} from 'jsplumb'
   import {toTreeData} from '~/utils/toTree'
   import {NodeType,LineType,JsPlumbInstanceType,SelectType,ConnectionType} from './type/index'
-  // import data from './data/dataCol'
-  // import data from './data/dataRow'
-  // import lines from './data/lines'
   import {jsPlumbConfig} from "./data/config"
   import {emitHandle} from "./hooks/index"
   const emit = defineEmits(['line','enter','leave'])
@@ -27,14 +24,13 @@
   let plumbIns:null | JsPlumbInstanceType = null
   const treeData = ref<NodeType[]>([])
   const lineData = ref<LineType[]>([])
-  const strokeColor = 'rgba(19,114,240,0.9)'
   const props = defineProps({
     jsPlumbConfig:{
       type:Object,
       default:()=>(jsPlumbConfig())
     }
   })
-
+  const strokeColor = props.jsPlumbConfig?.PaintStyle?.stroke || 'rgba(19,114,240,0.9)'
   const line = (node:NodeType) => {
     clear()
     nextTick(() => {

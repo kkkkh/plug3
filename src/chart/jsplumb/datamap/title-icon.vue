@@ -48,7 +48,7 @@
 </script>
 <script setup lang="ts">
   defineProps({
-    id: {
+    id: { // 目的是使用id，渐变颜色linearGradient的id，不一样
       type: String,
       default: '',
     },
